@@ -42,3 +42,8 @@ output "eks_oidc_provider_arn" {
   description = "IAM OIDC provider ARN for EKS workload identity."
   value       = module.eks.oidc_provider_arn
 }
+
+output "ecr_repository_urls" {
+  description = "ECR repository URLs keyed by retail microservice name."
+  value       = module.ecr.repository_urls
+}
