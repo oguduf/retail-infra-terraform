@@ -37,9 +37,9 @@ resource "aws_elasticache_replication_group" "main" {
   replication_group_id = "${var.project_name}-${var.environment}-cache"
   description          = "Retail application cache"
 
-  engine         = "valkey"
-  node_type      = "cache.t4g.micro"
-  port           = 6379
+  engine             = "valkey"
+  node_type          = "cache.t4g.micro"
+  port               = 6379
   num_cache_clusters = 1
 
   subnet_group_name  = aws_elasticache_subnet_group.main.name
