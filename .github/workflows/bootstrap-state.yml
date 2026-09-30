@@ -1,0 +1,70 @@
+name: Bootstrap Terraform State
+
+on:
+  workflow_dispatch:
+    inputs:
+      operation:
+        description: "Choose whether to preview or create the state bucket."
+        required: true
+        default: plan
+        type: choice
+        options:
+          - plan
+          - apply
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: terraform-bootstrap
+  cancel-in-progress: false
+
+env:
+  TF_IN_AUTOMATION: true
+  AWS_REGION: ${{ vars.AWS_REGION }}
+
+jobs:
+  bootstrap:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: bootstrap
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_wrapper: false
+
+      - name: Configure AWS credentials through OIDC
+        uses: aws-actions/configure-aws-credentials@v6.3.0
+        with:
+          role-to-assume: ${{ vars.AWS_ROLE_ARN }}
+          aws-region: ${{ vars.AWS_REGION }}
+          role-session-name: GudufRetailEksTerraformBootstrap
+
+      - name: Format and validate Terraform
+        run: |
+          terraform init -backend=false -input=false
+          terraform fmt -check
+          terraform validate
+
+      - name: Create Terraform plan
+        run: |
+          terraform plan -input=false -out=tfplan \
+            -var="state_bucket_name=${{ vars.TF_STATE_BUCKET }}"
+
+      - name: Apply Terraform plan
+        if: ${{ inputs.operation == 'apply' }}
+        run: terraform apply -input=false -auto-approve tfplan
+
+      - name: Store bootstrap Terraform state in S3
+        if: ${{ inputs.operation == 'apply' }}
+        run: |
+          aws s3 cp terraform.tfstate \
+            "s3://${{ vars.TF_STATE_BUCKET }}/bootstrap/terraform.tfstate"
