@@ -1,4 +1,4 @@
-# retail-infra-terraform# Retail Microservices Platform Infrastructure
+# Retail Microservices Platform Infrastructure
 
 Terraform infrastructure for the Retail Microservices Platform on AWS EKS.
 
