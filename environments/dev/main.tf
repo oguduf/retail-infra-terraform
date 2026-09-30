@@ -26,3 +26,17 @@ module "eks" {
   node_min_size       = var.node_min_size
   node_max_size       = var.node_max_size
 }
+
+module "ecr" {
+  source = "../../modules/ecr"
+
+  project_name = var.project_name
+  environment  = var.environment
+
+  service_names = toset([
+    "product",
+    "inventory",
+    "order",
+    "notification"
+  ])
+}
