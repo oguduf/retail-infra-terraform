@@ -55,10 +55,10 @@ resource "aws_db_instance" "mysql" {
   backup_retention_period = 7
   copy_tags_to_snapshot   = true
 
-  multi_az               = false
-  deletion_protection    = false
-  skip_final_snapshot    = true
-  apply_immediately      = false
+  multi_az            = false
+  deletion_protection = false
+  skip_final_snapshot = true
+  apply_immediately   = false
 
   tags = {
     Name = "${var.project_name}-${var.environment}-mysql"
