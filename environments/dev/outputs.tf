@@ -47,3 +47,8 @@ output "ecr_repository_urls" {
   description = "ECR repository URLs keyed by retail microservice name."
   value       = module.ecr.repository_urls
 }
+
+output "eks_cluster_security_group_id" {
+  description = "Security group ID used by the EKS cluster."
+  value       = module.eks.cluster_security_group_id
+}
