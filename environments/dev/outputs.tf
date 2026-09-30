@@ -1,5 +1,5 @@
 output "vpc_id" {
-  description = "ID of the development VPC."
+  description = "Development VPC ID."
   value       = module.network.vpc_id
 }
 
@@ -14,6 +14,26 @@ output "private_subnet_ids" {
 }
 
 output "nat_gateway_id" {
-  description = "Development NAT gateway ID."
+  description = "Single NAT gateway ID."
   value       = module.network.nat_gateway_id
+}
+
+output "eks_cluster_name" {
+  description = "EKS cluster name."
+  value       = module.eks.cluster_name
+}
+
+output "eks_cluster_endpoint" {
+  description = "EKS Kubernetes API endpoint."
+  value       = module.eks.cluster_endpoint
+}
+
+output "eks_oidc_issuer_url" {
+  description = "OIDC issuer URL for Kubernetes workload IAM roles."
+  value       = module.eks.cluster_oidc_issuer_url
+}
+
+output "eks_node_group_name" {
+  description = "Default EKS managed node group."
+  value       = module.eks.node_group_name
 }
