@@ -57,3 +57,13 @@ module "messaging" {
   project_name = var.project_name
   environment  = var.environment
 }
+
+module "cache" {
+  source = "../../modules/cache"
+
+  project_name                  = var.project_name
+  environment                   = var.environment
+  vpc_id                        = module.network.vpc_id
+  private_subnet_ids            = module.network.private_subnet_ids
+  eks_cluster_security_group_id = module.eks.cluster_security_group_id
+}
