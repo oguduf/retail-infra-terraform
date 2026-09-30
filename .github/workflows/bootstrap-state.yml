@@ -57,7 +57,7 @@ jobs:
           terraform validate
 
       - name: Create Terraform plan
-        run: terraform plan -input=false -out=tfplan
+        run: terraform plan -input=false -out=tfplan -var="state_bucket_name=${{ vars.TF_STATE_BUCKET }}"
 
       - name: Apply Terraform plan
         if: ${{ inputs.operation == 'apply' }}
