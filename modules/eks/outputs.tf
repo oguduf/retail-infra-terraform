@@ -32,3 +32,8 @@ output "node_group_name" {
   description = "Default managed node group name."
   value       = aws_eks_node_group.default.node_group_name
 }
+
+output "oidc_provider_arn" {
+  description = "IAM OIDC provider ARN for EKS workload identity."
+  value       = aws_iam_openid_connect_provider.eks.arn
+}
