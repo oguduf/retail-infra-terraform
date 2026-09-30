@@ -79,6 +79,11 @@ resource "aws_eks_node_group" "default" {
   capacity_type  = "ON_DEMAND"
   instance_types = var.node_instance_types
 
+  launch_template {
+    id      = aws_launch_template.workers.id
+    version = aws_launch_template.workers.latest_version
+  }
+
   scaling_config {
     desired_size = var.node_desired_size
     min_size     = var.node_min_size
