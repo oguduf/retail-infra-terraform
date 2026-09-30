@@ -40,3 +40,33 @@ module "ecr" {
     "notification"
   ])
 }
+
+module "data" {
+  source = "../../modules/data"
+
+  project_name                  = var.project_name
+  environment                   = var.environment
+  vpc_id                        = module.network.vpc_id
+  private_subnet_ids            = module.network.private_subnet_ids
+  eks_cluster_security_group_id = module.eks.cluster_security_group_id
+}
+
+output "mysql_endpoint" {
+  description = "Private MySQL endpoint for Product and Order services."
+  value       = module.data.mysql_endpoint
+}
+
+output "mysql_master_secret_arn" {
+  description = "Secrets Manager ARN holding RDS master credentials."
+  value       = module.data.mysql_master_secret_arn
+}
+
+output "inventory_table_name" {
+  description = "DynamoDB inventory table name."
+  value       = module.data.inventory_table_name
+}
+
+output "notification_table_name" {
+  description = "DynamoDB notification table name."
+  value       = module.data.notification_table_name
+}
