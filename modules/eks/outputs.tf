@@ -37,8 +37,3 @@ output "oidc_provider_arn" {
   description = "IAM OIDC provider ARN for EKS workload identity."
   value       = aws_iam_openid_connect_provider.eks.arn
 }
-
-output "eks_oidc_provider_arn" {
-  description = "IAM OIDC provider ARN for EKS workload identity."
-  value       = module.eks.oidc_provider_arn
-}

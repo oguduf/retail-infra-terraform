@@ -37,3 +37,8 @@ output "eks_node_group_name" {
   description = "Default EKS managed node group."
   value       = module.eks.node_group_name
 }
+
+output "eks_oidc_provider_arn" {
+  description = "IAM OIDC provider ARN for EKS workload identity."
+  value       = module.eks.oidc_provider_arn
+}
