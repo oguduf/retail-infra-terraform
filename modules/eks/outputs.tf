@@ -42,3 +42,8 @@ output "cluster_security_group_id" {
   description = "Security group automatically created for the EKS cluster."
   value       = aws_eks_cluster.main.vpc_config[0].cluster_security_group_id
 }
+
+output "load_balancer_controller_role_arn" {
+  description = "IAM role ARN for the AWS Load Balancer Controller service account."
+  value       = aws_iam_role.load_balancer_controller.arn
+}
