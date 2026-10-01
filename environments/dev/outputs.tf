@@ -87,3 +87,8 @@ output "notification_queue_url" {
   description = "SQS URL consumed by the Notification service."
   value       = module.messaging.notification_queue_url
 }
+
+output "cache_primary_endpoint" {
+  description = "Private Valkey cache endpoint."
+  value       = module.cache.primary_endpoint_address
+}
