@@ -92,3 +92,8 @@ output "cache_primary_endpoint" {
   description = "Private Valkey cache endpoint."
   value       = module.cache.primary_endpoint_address
 }
+
+output "load_balancer_controller_role_arn" {
+  description = "IAM role ARN used by the AWS Load Balancer Controller."
+  value       = module.eks.load_balancer_controller_role_arn
+}
